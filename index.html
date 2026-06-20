@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Love Bytes Hospitality — Brand Architecture & 2-Year Growth Masterplan</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root {
+  --cream: #FAF7F2;
+  --ink: #1C1C1E;
+  --ink-light: #3A3A3C;
+  --rose: #C9776A;
+  --rose-light: #F2DDD9;
+  --gold: #C8973A;
+  --gold-light: #F7EDD8;
+  --teal: #2D7D77;
+  --teal-light: #D4EDEB;
+  --amber: #D97B29;
+  --sage: #5C7A5A;
+  --sage-light: #E4EDE4;
+  --border: #E5DDD4;
+  --shadow-sm: 0 1px 6px rgba(28,28,30,0.06);
+  --radius: 12px;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'DM Sans',sans-serif; background:var(--cream); color:var(--ink); font-size:14px; line-height:1.6; }
+h1,h2,h3,h4 { font-family:'Playfair Display',serif; }
+
+/* NAV */
+.nav {
+  position:sticky; top:0; z-index:100;
+  background:var(--ink); color:var(--cream);
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0 20px; height:54px; gap:8px;
+}
+.nav-brand { font-family:'Playfair Display',serif; font-size:14px; font-style:italic; color:var(--gold); white-space:nowrap; flex-shrink:0; }
+.nav-tabs { display:flex; gap:2px; overflow-x:auto; }
+.nav-tab {
+  padding:6px 12px; border-radius:6px; font-size:12px; font-weight:500;
+  cursor:pointer; border:none; background:transparent; color:rgba(250,247,242,0.55);
+  white-space:nowrap; transition:all .18s; font-family:'DM Sans',sans-serif;
+}
+.nav-tab:hover { background:rgba(250,247,242,0.08); color:var(--cream); }
+.nav-tab.active { background:var(--gold); color:var(--ink); font-weight:600; }
+.nav-agency { font-size:10px; color:rgba(250,247,242,0.35); white-space:nowrap; flex-shrink:0; }
+
+/* SECTIONS */
+.section { display:none; padding:24px 20px; max-width:1260px; margin:0 auto; }
+.section.active { display:block; }
+
+/* HERO */
+.hero {
+  background:linear-gradient(135deg, var(--ink) 0%, #2C2415 100%);
+  border-radius:var(--radius); padding:40px 36px; margin-bottom:24px;
+  position:relative; overflow:hidden;
+}
+.hero::before {
+  content:''; position:absolute; top:-80px; right:-80px;
+  width:320px; height:320px; border-radius:50%;
+  background:radial-gradient(circle, rgba(200,151,58,0.12), transparent 70%);
+}
+.hero-eyebrow { font-size:10px; letter-spacing:2.5px; text-transform:uppercase; color:var(--gold); margin-bottom:10px; }
+.hero h1 { font-size:clamp(26px,3.5vw,40px); color:var(--cream); margin-bottom:10px; line-height:1.2; }
+.hero h1 span { color:var(--gold); font-style:italic; }
+.hero p { color:rgba(250,247,242,0.68); max-width:620px; font-size:14px; line-height:1.75; }
+.hero-stats { display:flex; gap:28px; margin-top:24px; flex-wrap:wrap; }
+.hs-item .val { font-family:'Playfair Display',serif; font-size:22px; color:var(--gold); }
+.hs-item .lbl { font-size:10px; color:rgba(250,247,242,0.45); text-transform:uppercase; letter-spacing:1px; }
+
+/* UAE PARTNER BADGE */
+.uae-badge {
+  display:inline-flex; align-items:center; gap:8px;
+  background:rgba(200,151,58,0.15); border:1px solid rgba(200,151,58,0.35);
+  border-radius:20px; padding:6px 14px; margin-top:16px;
+}
+.uae-badge-dot { width:8px; height:8px; border-radius:50%; background:var(--gold); animation:pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
+.uae-badge span { font-size:12px; color:var(--gold); font-weight:500; }
+
+/* CARDS */
+.card { background:white; border-radius:var(--radius); padding:22px; box-shadow:var(--shadow-sm); border:1px solid var(--border); }
+.card-title { font-size:15px; font-weight:600; margin-bottom:4px; }
+.card-sub { font-size:12px; color:#888; margin-bottom:14px; }
+
+/* GRIDS */
+.grid-2 { display:grid; grid-template-columns:repeat(auto-fit,minmax(290px,1fr)); gap:18px; margin-bottom:18px; }
+.grid-3 { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:18px; margin-bottom:18px; }
+.grid-4 { display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:14px; margin-bottom:18px; }
+
+/* PARENT BRAND */
+.parent-brand {
+  background:linear-gradient(135deg,var(--ink),#2C2415);
+  color:var(--cream); border-radius:var(--radius); padding:28px;
+  text-align:center; margin-bottom:18px;
+}
+.parent-brand h2 { font-size:26px; color:var(--gold); margin-bottom:6px; }
+.parent-brand p { color:rgba(250,247,242,0.65); font-size:13px; }
+.parent-badge { display:inline-block; background:var(--gold); color:var(--ink); font-size:10px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; padding:3px 10px; border-radius:20px; margin-bottom:10px; }
+
+/* VERTICALS */
+.vertical-cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:18px; margin-top:14px; }
+.vc { border-radius:var(--radius); padding:22px; border:2px solid transparent; position:relative; overflow:hidden; }
+.vc::before { content:''; position:absolute; top:0; left:0; right:0; height:4px; border-radius:12px 12px 0 0; }
+.vc-catering { background:var(--rose-light); border-color:var(--rose); }
+.vc-catering::before { background:var(--rose); }
+.vc-cloudit { background:var(--teal-light); border-color:var(--teal); }
+.vc-cloudit::before { background:var(--teal); }
+.vc-souq { background:var(--gold-light); border-color:var(--gold); }
+.vc-souq::before { background:var(--gold); }
+
+.vc-icon { font-size:26px; margin-bottom:8px; }
+.vc-name { font-family:'Playfair Display',serif; font-size:17px; font-weight:700; margin-bottom:3px; }
+.vc-tagline { font-size:11px; font-style:italic; margin-bottom:10px; color:var(--ink-light); }
+.vc-detail { font-size:12px; line-height:1.75; }
+.vc-tags { display:flex; flex-wrap:wrap; gap:5px; margin-top:10px; }
+.tag { font-size:10px; font-weight:600; letter-spacing:0.4px; text-transform:uppercase; padding:2px 7px; border-radius:20px; }
+.t-rose { background:var(--rose); color:white; }
+.t-teal { background:var(--teal); color:white; }
+.t-gold { background:var(--gold); color:white; }
+.t-ink { background:var(--ink); color:white; }
+
+/* BHOOMI REFERENCE BOX */
+.bhoomi-box {
+  background:var(--sage-light); border:2px dashed var(--sage);
+  border-radius:var(--radius); padding:20px; margin-top:18px;
+}
+.bhoomi-box h4 { font-size:14px; color:var(--sage); margin-bottom:6px; }
+
+/* SEASON CALENDAR */
+.cal-wrap { margin:14px 0; }
+.cal-months { display:grid; grid-template-columns:repeat(12,1fr); gap:3px; }
+.cal-m {
+  border-radius:6px; padding:9px 3px; text-align:center;
+  font-size:9px; font-weight:700; letter-spacing:0.5px; text-transform:uppercase;
+  cursor:default; border:2px solid transparent;
+}
+.cal-now { outline:3px solid var(--teal); outline-offset:2px; }
+.c-peak { background:var(--rose); color:white; }
+.c-high { background:var(--gold); color:white; }
+.c-med { background:var(--teal-light); color:var(--teal); border-color:var(--teal); }
+.c-low { background:#EFEFEF; color:#AAA; }
+.c-dead { background:#E8E8EA; color:#C0C0C5; }
+.c-prep { background:#E8EFF8; color:#3A5FA0; border-color:#3A5FA0; }
+.cal-m .mn { display:block; font-size:10px; margin-bottom:2px; }
+.cal-m .ms { font-size:8px; }
+
+.legend { display:flex; gap:10px; flex-wrap:wrap; margin-top:8px; font-size:11px; }
+.leg { display:flex; align-items:center; gap:5px; }
+.leg-dot { width:10px; height:10px; border-radius:3px; }
+
+/* TABLES */
+.tbl { width:100%; border-collapse:collapse; font-size:12px; }
+.tbl th { background:var(--ink); color:var(--cream); padding:9px 11px; text-align:left; font-size:10px; letter-spacing:0.5px; text-transform:uppercase; }
+.tbl th:first-child { border-radius:7px 0 0 0; }
+.tbl th:last-child { border-radius:0 7px 0 0; }
+.tbl td { padding:8px 11px; border-bottom:1px solid var(--border); vertical-align:middle; }
+.tbl tr:last-child td { border-bottom:none; }
+.tbl tr:hover td { background:var(--cream); }
+
+/* HEAT DOTS */
+.heat { display:inline-block; width:26px; height:18px; border-radius:3px; vertical-align:middle; margin-right:3px; }
+.h5{background:var(--rose)}.h4{background:var(--gold)}.h3{background:#5BADA7}.h2{background:#B8D4D2}.h1{background:#DCDCDE}
+
+/* PHASE BLOCKS */
+.phase { border-radius:var(--radius); padding:18px; margin-bottom:14px; }
+.ph0 { background:linear-gradient(135deg,#EAE8F5,#F3F2FA); border-left:4px solid #7B6FA0; }
+.ph1 { background:var(--teal-light); border-left:4px solid var(--teal); }
+.ph2 { background:var(--gold-light); border-left:4px solid var(--gold); }
+.ph3 { background:var(--rose-light); border-left:4px solid var(--rose); }
+.ph-head { display:flex; align-items:center; gap:10px; margin-bottom:12px; }
+.ph-num { width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:12px; color:white; flex-shrink:0; }
+.pn0{background:#7B6FA0} .pn1{background:var(--teal)} .pn2{background:var(--gold)} .pn3{background:var(--rose)}
+.ph-title { font-family:'Playfair Display',serif; font-size:15px; }
+.ph-sub { font-size:11px; color:#888; margin-top:1px; }
+.ph-items { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:10px; }
+.ph-item { background:white; border-radius:8px; padding:11px 13px; font-size:12px; }
+.ph-item-title { font-weight:600; margin-bottom:5px; font-size:12px; }
+.ph-item ul { margin-left:14px; }
+.ph-item li { margin-bottom:3px; line-height:1.55; }
+
+/* PILL */
+.pill { display:inline-flex; align-items:center; gap:4px; padding:3px 9px; border-radius:20px; font-size:10px; font-weight:600; }
+.pill-gold { background:var(--gold-light); color:var(--amber); }
+.pill-teal { background:var(--teal-light); color:var(--teal); }
+.pill-rose { background:var(--rose-light); color:var(--rose); }
+.pill-ink { background:#EDEDEF; color:#555; }
+
+/* EXEC DASHBOARD */
+.filter-row { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:18px; align-items:center; }
+.filter-row label { font-size:11px; color:#888; }
+.filter-row select {
+  padding:6px 10px; border:1px solid var(--border); border-radius:6px;
+  background:white; font-family:'DM Sans',sans-serif; font-size:12px; color:var(--ink); cursor:pointer;
+}
+.filter-row select:focus { outline:none; border-color:var(--teal); }
+.filter-row button { padding:6px 12px; background:var(--ink); color:white; border:none; border-radius:6px; cursor:pointer; font-size:11px; font-family:'DM Sans',sans-serif; }
+
+.kpi-strip { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:14px; margin-bottom:20px; }
+.kpi-c { background:white; border-radius:var(--radius); padding:16px; box-shadow:var(--shadow-sm); border:1px solid var(--border); text-align:center; }
+.kpi-ic { font-size:22px; margin-bottom:5px; }
+.kpi-v { font-family:'Playfair Display',serif; font-size:24px; color:var(--ink); }
+.kpi-l { font-size:10px; color:#888; text-transform:uppercase; letter-spacing:0.5px; margin-top:2px; }
+.kpi-n { font-size:10px; color:var(--teal); margin-top:2px; }
+
+/* TASK TABLE */
+.tt { width:100%; border-collapse:collapse; font-size:12px; }
+.tt th { padding:9px 11px; text-align:left; background:#F5F5F7; font-size:10px; color:#666; text-transform:uppercase; letter-spacing:0.4px; }
+.tt td { padding:9px 11px; border-bottom:1px solid var(--border); vertical-align:middle; }
+.tt tr:hover td { background:var(--cream); }
+.tt input[type=checkbox] { accent-color:var(--teal); width:14px; height:14px; cursor:pointer; }
+.badge { display:inline-block; padding:2px 7px; border-radius:20px; font-size:10px; font-weight:600; white-space:nowrap; }
+.b-dm { background:#E5F3FB; color:#0A6E9C; }
+.b-design { background:var(--gold-light); color:#7A5308; }
+.b-client { background:var(--rose-light); color:var(--rose); }
+.b-ops { background:var(--sage-light); color:var(--sage); }
+.b-strategy { background:#EAE8F5; color:#5A4E80; }
+.b-high { background:#FDDEDE; color:#B02020; }
+.b-med { background:#FEF0DC; color:#915200; }
+.b-low { background:#E5F0E5; color:#2A5E2A; }
+
+/* FORECAST */
+.fc-row { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; margin-bottom:18px; }
+.fc-c { border-radius:var(--radius); padding:18px; border:2px solid; }
+.fc-catering { border-color:var(--rose); background:var(--rose-light); }
+.fc-cloudit { border-color:var(--teal); background:var(--teal-light); }
+.fc-souq { border-color:var(--gold); background:var(--gold-light); }
+.fc-l { font-size:10px; font-weight:700; letter-spacing:1px; text-transform:uppercase; margin-bottom:7px; }
+.fc-v { font-family:'Playfair Display',serif; font-size:22px; margin-bottom:3px; }
+.fc-n { font-size:11px; color:#666; }
+
+/* CHART */
+.ch-wrap { height:250px; position:relative; }
+
+/* MATRIX */
+.mx { width:100%; border-collapse:collapse; font-size:12px; }
+.mx th,.mx td { padding:9px 11px; border:1px solid var(--border); text-align:center; }
+.mx th { background:var(--ink); color:var(--cream); font-size:10px; text-transform:uppercase; letter-spacing:0.4px; }
+.mx td:first-child { text-align:left; font-weight:600; background:#F5F5F7; }
+.mx-s { background:#D0EDDF; color:#1A6B3A; font-weight:700; }
+.mx-m { background:var(--gold-light); color:#7A5308; font-weight:600; }
+.mx-w { background:#F5F5F7; color:#BBB; }
+
+/* RISK */
+.rt { width:100%; border-collapse:collapse; font-size:12px; }
+.rt th { background:var(--ink); color:var(--cream); padding:9px 11px; text-align:left; font-size:10px; text-transform:uppercase; letter-spacing:0.4px; }
+.rt th:first-child { border-radius:7px 0 0 0; }
+.rt th:last-child { border-radius:0 7px 0 0; }
+.rt td { padding:9px 11px; border-bottom:1px solid var(--border); vertical-align:top; }
+.rt tr:hover td { background:var(--cream); }
+.rh { background:#FDDEDE; color:#B02020; }
+.rm { background:#FEF0DC; color:#915200; }
+.rl { background:#E5F0E5; color:#2A5E2A; }
+
+/* INFO BOX */
+.ib { border-radius:8px; padding:12px 14px; font-size:12px; display:flex; gap:9px; align-items:flex-start; margin-bottom:14px; }
+.ib-icon { font-size:15px; flex-shrink:0; margin-top:1px; }
+.ib-teal { background:var(--teal-light); color:var(--teal); }
+.ib-gold { background:var(--gold-light); color:var(--amber); }
+.ib-rose { background:var(--rose-light); color:var(--rose); }
+.ib-ink { background:#EDEDEF; color:#444; }
+
+.sec-title { font-size:21px; margin-bottom:4px; }
+.sec-sub { font-size:13px; color:#888; margin-bottom:20px; }
+.table-scroll { overflow-x:auto; }
+.divider { border:none; border-top:1px solid var(--border); margin:20px 0; }
+
+.agency-wm { text-align:center; padding:20px; color:#BBB; font-size:10px; letter-spacing:1.5px; text-transform:uppercase; }
+
+@media(max-width:640px){
+  .section{padding:14px 10px;}
+  .hero{padding:26px 18px;}
+  .cal-m{font-size:8px;padding:7px 2px;}
+  .nav-tab{padding:5px 8px;font-size:10px;}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-brand">Love Bytes Hospitality</div>
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="showTab('overview',this)">Overview</button>
+    <button class="nav-tab" onclick="showTab('brands',this)">Brand Architecture</button>
+    <button class="nav-tab" onclick="showTab('seasons',this)">Season Calendar</button>
+    <button class="nav-tab" onclick="showTab('marketing',this)">2-Year Plan</button>
+    <button class="nav-tab" onclick="showTab('dashboard',this)">Execution Dashboard</button>
+    <button class="nav-tab" onclick="showTab('forecast',this)">Forecast & KPIs</button>
+    <button class="nav-tab" onclick="showTab('crosssell',this)">Cross-Sell</button>
+  </div>
+  <div class="nav-agency">FlumenX × Misc Archive</div>
+</nav>
+
+<!-- ===== OVERVIEW ===== -->
+<div class="section active" id="section-overview">
+  <div class="hero">
+    <div class="hero-eyebrow">Strategic Brand Architecture · Trivandrum, Kerala · Starting June 2026</div>
+    <h1>Love Bytes <span>Hospitality</span> Group</h1>
+    <p>A unified hospitality parent brand housing three powerful verticals — catering mastery, cloud kitchen consultancy, and Kerala's boldest food street concept — all rooted in Trivandrum and built to scale.</p>
+    <div class="uae-badge">
+      <div class="uae-badge-dot"></div>
+      <span>UAE Chef Partnership — Active · Joint Menu Authority Across All Verticals</span>
+    </div>
+    <div class="hero-stats">
+      <div class="hs-item"><div class="val">3</div><div class="lbl">Brand Verticals</div></div>
+      <div class="hs-item"><div class="val">2 Yrs</div><div class="lbl">Growth Horizon</div></div>
+      <div class="hs-item"><div class="val">Jun '26</div><div class="lbl">Start Point</div></div>
+      <div class="hs-item"><div class="val">₹80L+</div><div class="lbl">Year 1 Combined Target</div></div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Why "Love Bytes Hospitality"?</div>
+      <div class="card-sub">Strategic case for the parent brand name</div>
+      <p style="font-size:13px;line-height:1.75;margin-bottom:12px;"><strong>Love Bytes</strong> already carries earned brand equity and recognition across Trivandrum's catering and wedding circuit — that is a real asset. The upgrade to <strong>Hospitality</strong> removes the ceiling that the word "Catering" creates without abandoning any existing brand value.</p>
+      <p style="font-size:13px;line-height:1.75;margin-bottom:12px;">"Hospitality" is the only word in F&B that legitimately houses catering, food streets, cloud kitchen consulting, and experiential dining under one roof — each vertical feels purposeful, not squeezed in.</p>
+      <div class="ib ib-teal">
+        <span class="ib-icon">✦</span>
+        <div>This also creates the structural clarity needed now that the group has a UAE chef partner and is building multiple consumer touchpoints — the parent brand needs to be the trust anchor that makes each vertical credible on its own.</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">🌍 UAE Chef Partnership Advantage</div>
+      <div class="card-sub">An active, confirmed partnership — not a plan. Here's how to leverage it.</div>
+      <ul style="font-size:13px;line-height:1.85;margin-left:16px;">
+        <li><strong>Catering:</strong> "UAE-chef curated" premium packages — justify ₹1,200+ per plate positioning</li>
+        <li><strong>CloudIT:</strong> International chef as a guest/master trainer — massive credibility for aspiring kitchen entrepreneurs</li>
+        <li><strong>Souq Food Street:</strong> Middle Eastern cuisine authenticity is the entire brand story — the partnership is the USP</li>
+        <li><strong>PR & Content:</strong> Dubai + Kerala cross-cultural food story — perfect for media features, reels, long-form content</li>
+        <li><strong>Long-term:</strong> GCC market access for both training programs and future food concept exports</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="grid-3">
+    <div class="card">
+      <div class="card-title">🎯 Strategic Priorities — Now (Jun–Aug 2026)</div>
+      <div class="card-sub">What must happen in the first 3 months</div>
+      <ul style="font-size:13px;line-height:1.85;margin-left:16px;">
+        <li>Lock parent brand visual identity & group website</li>
+        <li>Announce UAE chef partnership publicly (content first)</li>
+        <li>Launch Souq food street — Kazhakkoottam/Chempazhanthy zone</li>
+        <li>Rebrand CloudIT as a structured B2B training vertical</li>
+        <li>Begin Onam catering pre-bookings campaign</li>
+        <li>Build Nov–Feb wedding season booking pipeline</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">📍 Market Intelligence</div>
+      <div class="card-sub">Trivandrum F&B landscape — June 2026</div>
+      <ul style="font-size:13px;line-height:1.85;margin-left:16px;">
+        <li>Peak catering season: Nov–Feb (book 8–12 months ahead)</li>
+        <li>Wedding sadya: ₹450–₹800/plate; Premium non-veg: ₹1,000–₹1,800</li>
+        <li>Corporate B2B catering growing at 48% YoY nationally</li>
+        <li>Cloud kitchen consulting: massive gap in structured training in TVM</li>
+        <li>Food street / QSR-casual concept: underserved in Kazhakkoottam zone</li>
+        <li>Middle Eastern food: trending across India's urban Gen Z and NRIs</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">🌿 Bhoomi / Bu.Mi Inspiration</div>
+      <div class="card-sub">Design & philosophy reference for the group's approach</div>
+      <div class="bhoomi-box">
+        <h4>Reference Concept — Not a Vertical</h4>
+        <p style="font-size:12px;line-height:1.7;color:var(--ink-light);">Bu.Mi Trivandrum's experiential restobar philosophy — earth-rooted, seasonal, sensory dining — is a design and positioning reference that can inform how Love Bytes Hospitality presents its premium catering experiences and how Souq Food Street creates atmosphere. The <em>Bhoomi</em> thinking (soil to soul, local sourcing, experience over transaction) is a cultural lens, not a separate product.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== BRAND ARCHITECTURE ===== -->
+<div class="section" id="section-brands">
+  <h2 class="sec-title">Brand Architecture</h2>
+  <p class="sec-sub">Three verticals under one parent — each distinct, each cross-feeding the others</p>
+
+  <div class="parent-brand">
+    <div class="parent-badge">Parent Brand · Holding Identity</div>
+    <h2>Love Bytes Hospitality Group</h2>
+    <p style="margin-top:8px;font-size:14px;font-style:italic;">"Where Every Meal Becomes a Memory"</p>
+    <p style="margin-top:6px;font-size:11px;color:rgba(250,247,242,0.4);">Trivandrum, Kerala · UAE Partnership Active</p>
+    <div style="margin-top:18px;display:flex;gap:24px;justify-content:center;flex-wrap:wrap;">
+      <div><div style="font-size:10px;color:rgba(250,247,242,0.4);text-transform:uppercase;letter-spacing:1px;">Brand DNA</div><div style="font-size:13px;color:var(--gold);margin-top:3px;">Craft · Warmth · Scale</div></div>
+      <div><div style="font-size:10px;color:rgba(250,247,242,0.4);text-transform:uppercase;letter-spacing:1px;">Tone</div><div style="font-size:13px;color:var(--gold);margin-top:3px;">Warm Authority · Kerala-rooted · Aspirational</div></div>
+      <div><div style="font-size:10px;color:rgba(250,247,242,0.4);text-transform:uppercase;letter-spacing:1px;">Visual</div><div style="font-size:13px;color:var(--gold);margin-top:3px;">Ink · Gold · Warm Cream · Kerala Textures</div></div>
+    </div>
+  </div>
+
+  <div class="vertical-cards">
+
+    <!-- CATERING -->
+    <div class="vc vc-catering">
+      <div class="vc-icon">🍽️</div>
+      <div class="vc-name" style="color:var(--rose);">Love Bytes Catering</div>
+      <div class="vc-tagline">The art of celebration, perfected — one plate at a time</div>
+      <hr style="border:none;border-top:1px solid rgba(201,119,106,0.25);margin:10px 0;">
+      <div class="vc-detail">
+        <strong>Audience:</strong> Wedding couples, families, corporates, institutions<br>
+        <strong>Price Range:</strong> ₹500–₹1,800/plate depending on package<br>
+        <strong>USP:</strong> Chef Kumar's culinary leadership + UAE chef's international menu co-creation = a catering brand that can serve both a traditional Kerala Sadhya and a premium fusion spread with equal authority<br>
+        <strong>Revenue:</strong> Per-plate packages · Corporate monthly contracts · Onam/festival bulk bookings<br>
+        <strong>Positioning:</strong> "Not just catering. An experience your guests will talk about for years."
+      </div>
+      <div class="vc-tags">
+        <span class="tag t-rose">Weddings</span><span class="tag t-ink">Corporate</span><span class="tag t-rose">Sadhya</span><span class="tag t-ink">Live Counters</span><span class="tag t-rose">Fusion</span><span class="tag t-ink">Onam Feasts</span>
+      </div>
+      <div style="margin-top:12px;font-size:11px;color:#888;">
+        <strong>Social:</strong> @the_lovebites_wedding_planner (IG) · The Love Bites Events & Catering (FB)
+      </div>
+    </div>
+
+    <!-- CLOUDIT -->
+    <div class="vc vc-cloudit">
+      <div class="vc-icon">☁️</div>
+      <div class="vc-name" style="color:var(--teal);">CloudIT</div>
+      <div class="vc-tagline">Kitchen intelligence. Entrepreneurship unlocked.</div>
+      <hr style="border:none;border-top:1px solid rgba(45,125,119,0.25);margin:10px 0;">
+      <div class="vc-detail">
+        <strong>Audience:</strong> Aspiring cloud kitchen entrepreneurs, small restaurant owners, F&B startup founders, home chefs going commercial<br>
+        <strong>Price Range:</strong> ₹8,000–₹40,000 per program/consultation<br>
+        <strong>USP:</strong> The only Kerala-based cloud kitchen consultancy led by working professional chefs — not just theory, but actual kitchen setup, menu engineering, licensing guidance, and ops coaching, co-powered by a UAE-based partner chef<br>
+        <strong>Revenue:</strong> Training batches · Kitchen setup consulting · Menu design fees · Ongoing mentorship retainers<br>
+        <strong>Positioning:</strong> "Built by chefs who did it. For entrepreneurs who want to."
+      </div>
+      <div class="vc-tags">
+        <span class="tag t-teal">Training</span><span class="tag t-ink">Consulting</span><span class="tag t-teal">Menu Design</span><span class="tag t-ink">Kitchen Setup</span><span class="tag t-teal">B2B</span><span class="tag t-ink">UAE Expertise</span>
+      </div>
+      <div style="margin-top:12px;font-size:11px;color:#888;">
+        <strong>Social:</strong> @cloudit13 (IG) · Facebook active
+      </div>
+    </div>
+
+    <!-- SOUQ -->
+    <div class="vc vc-souq">
+      <div class="vc-icon">🥙</div>
+      <div class="vc-name" style="color:var(--gold);">Souq</div>
+      <div class="vc-tagline">Kerala's first authentic food street. Middle East meets Monsoon.</div>
+      <hr style="border:none;border-top:1px solid rgba(200,151,58,0.25);margin:10px 0;">
+      <div class="vc-detail">
+        <strong>Concept:</strong> An open food street experience — not a single restaurant, but a curated multi-stall, multi-flavour street food zone with Middle Eastern cuisine at its core, co-developed with the UAE chef partner<br>
+        <strong>First Location:</strong> Kazhakkoottam / Chempazhanthy zone (currently building)<br>
+        <strong>Expansion Model:</strong> New areas/zones → replicate the Souq format (not franchise fees, but area-wise expansion)<br>
+        <strong>Audience:</strong> Young urban Trivandrum, families, office-goers, NRIs, food explorers<br>
+        <strong>Price Point:</strong> ₹80–₹350 per item — accessible, shareable, social-media-worthy<br>
+        <strong>Positioning:</strong> "The souq is a feeling. A chaos of flavours, aromas, and people. We brought that here."
+      </div>
+      <div class="vc-tags">
+        <span class="tag t-gold">Food Street</span><span class="tag t-ink">Middle Eastern</span><span class="tag t-gold">UAE Chef</span><span class="tag t-ink">Multi-Stall</span><span class="tag t-gold">Kazhakkoottam</span><span class="tag t-ink">Chempazhanthy</span>
+      </div>
+      <div style="margin-top:12px;font-size:11px;color:#888;">
+        <strong>Model:</strong> Area-wise expansion — new Souq zones, not traditional franchise units
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:18px;">
+    <div class="card-title">Shared Group Assets — What All Three Verticals Share</div>
+    <div class="card-sub">The parent brand infrastructure that makes each vertical stronger</div>
+    <div class="grid-4" style="margin-top:10px;margin-bottom:0;">
+      <div style="background:var(--cream);border-radius:8px;padding:12px;text-align:center;">
+        <div style="font-size:20px;margin-bottom:5px;">👨‍🍳</div><div style="font-size:12px;font-weight:600;">Chef Kumar's<br>Personal Brand</div><div style="font-size:11px;color:#888;margin-top:3px;">Trust anchor for<br>all three verticals</div>
+      </div>
+      <div style="background:var(--cream);border-radius:8px;padding:12px;text-align:center;">
+        <div style="font-size:20px;margin-bottom:5px;">🌍</div><div style="font-size:12px;font-weight:600;">UAE Chef<br>Partnership</div><div style="font-size:11px;color:#888;margin-top:3px;">Menu authority +<br>international story</div>
+      </div>
+      <div style="background:var(--cream);border-radius:8px;padding:12px;text-align:center;">
+        <div style="font-size:20px;margin-bottom:5px;">🏠</div><div style="font-size:12px;font-weight:600;">Central Kitchen<br>Infrastructure</div><div style="font-size:11px;color:#888;margin-top:3px;">Shared prep powers<br>all three brands</div>
+      </div>
+      <div style="background:var(--cream);border-radius:8px;padding:12px;text-align:center;">
+        <div style="font-size:20px;margin-bottom:5px;">📲</div><div style="font-size:12px;font-weight:600;">Group Digital<br>Presence</div><div style="font-size:11px;color:#888;margin-top:3px;">Unified website +<br>coordinated social</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SEASON CALENDAR ===== -->
+<div class="section" id="section-seasons">
+  <h2 class="sec-title">Business Season Calendar</h2>
+  <p class="sec-sub">Practical planning calendar starting June 2026 — month-by-month intensity mapped to each vertical</p>
+
+  <div class="ib ib-teal" style="margin-bottom:16px;">
+    <span class="ib-icon">📍</span>
+    <div><strong>You're starting in June 2026.</strong> The calendar below reflects the business reality from this month forward — Jun–Jul is preparation window, Onam (Aug/Sep) is first big push, Nov–Feb is peak wedding season. Plan backwards from each peak: marketing for Nov must begin in June. Marketing for Onam must begin now.</div>
+  </div>
+
+  <!-- CATERING CALENDAR -->
+  <div class="card" style="margin-bottom:16px;">
+    <div class="card-title">🍽️ Love Bytes Catering — Demand & Action Calendar</div>
+    <div class="card-sub">Starting June 2026</div>
+    <div class="cal-months">
+      <div class="cal-m c-prep cal-now"><span class="mn">JUN</span><span class="ms">PLAN</span></div>
+      <div class="cal-m c-prep"><span class="mn">JUL</span><span class="ms">BOOK</span></div>
+      <div class="cal-m c-high"><span class="mn">AUG</span><span class="ms">ONAM</span></div>
+      <div class="cal-m c-high"><span class="mn">SEP</span><span class="ms">HIGH</span></div>
+      <div class="cal-m c-med"><span class="mn">OCT</span><span class="ms">BUILD</span></div>
+      <div class="cal-m c-peak"><span class="mn">NOV</span><span class="ms">PEAK</span></div>
+      <div class="cal-m c-peak"><span class="mn">DEC</span><span class="ms">PEAK</span></div>
+      <div class="cal-m c-peak"><span class="mn">JAN</span><span class="ms">PEAK</span></div>
+      <div class="cal-m c-high"><span class="mn">FEB</span><span class="ms">HIGH</span></div>
+      <div class="cal-m c-high"><span class="mn">MAR</span><span class="ms">HIGH</span></div>
+      <div class="cal-m c-med"><span class="mn">APR</span><span class="ms">VISHU</span></div>
+      <div class="cal-m c-low"><span class="mn">MAY</span><span class="ms">SLOW</span></div>
+    </div>
+    <div class="legend">
+      <div class="leg"><div class="leg-dot" style="background:var(--rose);"></div>Peak (NDJF)</div>
+      <div class="leg"><div class="leg-dot" style="background:var(--gold);"></div>High</div>
+      <div class="leg"><div class="leg-dot" style="background:var(--teal);border:1px solid var(--teal);"></div>Medium</div>
+      <div class="leg"><div class="leg-dot" style="background:#3A5FA0;"></div>Prep/Campaign Month</div>
+      <div class="leg"><div class="leg-dot" style="background:#DCDCDE;"></div>Slow</div>
+    </div>
+  </div>
+
+  <!-- CLOUDIT CALENDAR -->
+  <div class="card" style="margin-bottom:16px;">
+    <div class="card-title">☁️ CloudIT — Training Batch Rhythm</div>
+    <div class="card-sub">Batch intake windows and lead gen calendar from June 2026</div>
+    <div class="cal-months">
+      <div class="cal-m c-high cal-now"><span class="mn">JUN</span><span class="ms">BATCH1</span></div>
+      <div class="cal-m c-high"><span class="mn">JUL</span><span class="ms">BATCH1</span></div>
+      <div class="cal-m c-med"><span class="mn">AUG</span><span class="ms">INTAKE</span></div>
+      <div class="cal-m c-high"><span class="mn">SEP</span><span class="ms">BATCH2</span></div>
+      <div class="cal-m c-high"><span class="mn">OCT</span><span class="ms">BATCH2</span></div>
+      <div class="cal-m c-med"><span class="mn">NOV</span><span class="ms">INTAKE</span></div>
+      <div class="cal-m c-low"><span class="mn">DEC</span><span class="ms">LOW</span></div>
+      <div class="cal-m c-low"><span class="mn">JAN</span><span class="ms">LOW</span></div>
+      <div class="cal-m c-high"><span class="mn">FEB</span><span class="ms">BATCH3</span></div>
+      <div class="cal-m c-high"><span class="mn">MAR</span><span class="ms">BATCH3</span></div>
+      <div class="cal-m c-peak"><span class="mn">APR</span><span class="ms">PEAK</span></div>
+      <div class="cal-m c-peak"><span class="mn">MAY</span><span class="ms">PEAK</span></div>
+    </div>
+    <div class="ib ib-teal" style="margin-top:12px;margin-bottom:0;">
+      <span class="ib-icon">💡</span>
+      <div>CloudIT is counter-seasonal to catering — it peaks when weddings are slow (Apr–May, Jun–Jul). This is a strategic revenue stabilizer for the group.</div>
+    </div>
+  </div>
+
+  <!-- SOUQ CALENDAR -->
+  <div class="card" style="margin-bottom:16px;">
+    <div class="card-title">🥙 Souq Food Street — Footfall & Revenue Calendar</div>
+    <div class="card-sub">Launch + ramp-up from June/July 2026 (Kazhakkoottam zone)</div>
+    <div class="cal-months">
+      <div class="cal-m c-prep cal-now"><span class="mn">JUN</span><span class="ms">BUILD</span></div>
+      <div class="cal-m c-med"><span class="mn">JUL</span><span class="ms">LAUNCH</span></div>
+      <div class="cal-m c-high"><span class="mn">AUG</span><span class="ms">ONAM</span></div>
+      <div class="cal-m c-high"><span class="mn">SEP</span><span class="ms">HIGH</span></div>
+      <div class="cal-m c-high"><span class="mn">OCT</span><span class="ms">HIGH</span></div>
+      <div class="cal-m c-high"><span class="mn">NOV</span><span class="ms">HIGH</span></div>
+      <div class="cal-m c-peak"><span class="mn">DEC</span><span class="ms">PEAK</span></div>
+      <div class="cal-m c-peak"><span class="mn">JAN</span><span class="ms">PEAK</span></div>
+      <div class="cal-m c-high"><span class="mn">FEB</span><span class="ms">HIGH</span></div>
+      <div class="cal-m c-med"><span class="mn">MAR</span><span class="ms">MED</span></div>
+      <div class="cal-m c-med"><span class="mn">APR</span><span class="ms">VISHU</span></div>
+      <div class="cal-m c-med"><span class="mn">MAY</span><span class="ms">MED</span></div>
+    </div>
+    <div class="ib ib-gold" style="margin-top:12px;margin-bottom:0;">
+      <span class="ib-icon">📌</span>
+      <div>Souq benefits from Dec–Jan NRI/tourist season and weekend footfall year-round. If the first zone launches in July, target 3-month ramp before planning Zone 2.</div>
+    </div>
+  </div>
+
+  <!-- MASTER SEASON TABLE -->
+  <div class="card">
+    <div class="card-title">Month-by-Month Master Action Table (Jun 2026 → May 2027)</div>
+    <div class="card-sub">What to focus on, campaign to run, and what to prepare — for each month</div>
+    <div class="table-scroll">
+    <table class="tbl">
+      <thead>
+        <tr><th>Month</th><th>Kerala Trigger</th><th>🍽️ Catering</th><th>☁️ CloudIT</th><th>🥙 Souq</th><th>Key Campaign / Action</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Jun '26</strong></td><td>Monsoon, School reopens, Bakrid</td><td><span class="heat h2"></span>Plan</td><td><span class="heat h4"></span>High</td><td><span class="heat h2"></span>Build</td><td>🚀 Launch group brand identity; Onam catering campaign starts; CloudIT Batch 1 intake</td></tr>
+        <tr><td><strong>Jul '26</strong></td><td>Deep monsoon, Muharram</td><td><span class="heat h2"></span>Pre-book</td><td><span class="heat h4"></span>High</td><td><span class="heat h3"></span>Soft Launch</td><td>Souq soft launch; catering Nov pre-bookings push; CloudIT Batch 1 running</td></tr>
+        <tr><td><strong>Aug '26</strong></td><td>Onam (Sadhya!), Independence Day</td><td><span class="heat h4"></span>Onam High</td><td><span class="heat h3"></span>Med</td><td><span class="heat h4"></span>High</td><td>🎊 Onam all-hands — Sadhya bookings, Souq Onam street specials, CloudIT Batch 2 intake</td></tr>
+        <tr><td><strong>Sep '26</strong></td><td>Post-Onam, Navaratri, Boat Races</td><td><span class="heat h4"></span>High</td><td><span class="heat h4"></span>High</td><td><span class="heat h4"></span>High</td><td>Heavy wedding lead gen begin; Navaratri events; CloudIT Batch 2 runs</td></tr>
+        <tr><td><strong>Oct '26</strong></td><td>Dussehra, Diwali, Pre-wedding peak</td><td><span class="heat h3"></span>Build</td><td><span class="heat h4"></span>High</td><td><span class="heat h4"></span>High</td><td>Diwali corporate events for Catering; Souq Diwali specials; Nov calendar fully booked</td></tr>
+        <tr><td><strong>Nov '26</strong></td><td>PEAK WEDDING SEASON opens, Theyyam</td><td><span class="heat h5"></span>PEAK</td><td><span class="heat h3"></span>Med</td><td><span class="heat h4"></span>High</td><td>🔴 Peak catering all-hands; Souq high footfall; CloudIT Nov intake batch</td></tr>
+        <tr><td><strong>Dec '26</strong></td><td>Christmas, NRI season, Year-end parties</td><td><span class="heat h5"></span>PEAK</td><td><span class="heat h1"></span>Low</td><td><span class="heat h5"></span>PEAK</td><td>Corporate year-end events, NRI weddings; Souq Christmas/NYE specials</td></tr>
+        <tr><td><strong>Jan '27</strong></td><td>New Year, Makara Vilakku, NRI high</td><td><span class="heat h5"></span>PEAK</td><td><span class="heat h1"></span>Low</td><td><span class="heat h5"></span>PEAK</td><td>Catering + Souq peak continues; begin planning Zone 2 Souq feasibility</td></tr>
+        <tr><td><strong>Feb '27</strong></td><td>Attukal Pongala, Valentine's, Weddings</td><td><span class="heat h4"></span>High</td><td><span class="heat h4"></span>High</td><td><span class="heat h4"></span>High</td><td>Valentine's at Souq; CloudIT Batch 3 intake; review Year 1 performance</td></tr>
+        <tr><td><strong>Mar '27</strong></td><td>Attukal Pongala, Holi, Board exams</td><td><span class="heat h4"></span>High</td><td><span class="heat h4"></span>High</td><td><span class="heat h3"></span>Med</td><td>CloudIT Batch 3 running; catering Vishu planning begins; Souq Z2 site selection</td></tr>
+        <tr><td><strong>Apr '27</strong></td><td>Vishu (Apr 14), Easter, Summer begins</td><td><span class="heat h4"></span>Vishu</td><td><span class="heat h5"></span>PEAK</td><td><span class="heat h4"></span>High</td><td>🎊 Vishu feast packages (Catering); Souq summer specials; CloudIT peak enrollment</td></tr>
+        <tr><td><strong>May '27</strong></td><td>School holidays, Summer heat, Pre-monsoon</td><td><span class="heat h2"></span>Slow</td><td><span class="heat h5"></span>PEAK</span></td><td><span class="heat h3"></span>Med</td><td>CloudIT summer intensive batch; begin Onam '27 catering pre-bookings; Souq Z2 prep</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 2-YEAR PLAN ===== -->
+<div class="section" id="section-marketing">
+  <h2 class="sec-title">2-Year Brand & Marketing Plan</h2>
+  <p class="sec-sub">Phase-wise execution starting June 2026 — practical, sequenced, achievable</p>
+
+  <!-- PHASE 0 -->
+  <div class="phase ph0">
+    <div class="ph-head">
+      <div class="ph-num pn0">0</div>
+      <div><div class="ph-title">Foundation — Brand Lock & Infrastructure</div><div class="ph-sub">Jun–Jul 2026 · 8 weeks · Do this before everything else</div></div>
+      <span class="pill pill-gold">Start Now</span>
+    </div>
+    <div class="ph-items">
+      <div class="ph-item">
+        <div class="ph-item-title">🏷️ Parent Brand Identity</div>
+        <ul>
+          <li>Design "Love Bytes Hospitality Group" logo & visual system</li>
+          <li>Sub-brand visual guidelines for Catering, CloudIT, Souq</li>
+          <li>Color palette, typography, brand voice document</li>
+          <li>Templates: invoice, proposal, deck, email signature</li>
+        </ul>
+      </div>
+      <div class="ph-item">
+        <div class="ph-item-title">🌐 Digital Infrastructure</div>
+        <ul>
+          <li>Group website: lovebyteshospitality.com (or .in)</li>
+          <li>3 landing pages — one per vertical</li>
+          <li>WhatsApp Business — catering inquiry funnel</li>
+          <li>Google Business profiles — all 3 brands, claimed & verified</li>
+        </ul>
+      </div>
+      <div class="ph-item">
+        <div class="ph-item-title">📸 Content Foundation</div>
+        <ul>
+          <li>1-day shoot — all 3 verticals + Chef Kumar + UAE chef (joint)</li>
+          <li>Build 60-day content calendar & asset bank</li>
+          <li>Announce UAE partnership publicly — reel + post</li>
+          <li>Chef Kumar personal brand content — origin story video</li>
+        </ul>
+      </div>
+      <div class="ph-item">
+        <div class="ph-item-title">🥙 Souq Pre-Launch</div>
+        <ul>
+          <li>Finalize Kazhakkoottam/Chempazhanthy zone setup</li>
+          <li>Confirm menu with UAE chef partner</li>
+          <li>Soft-launch teaser content — "Something's coming to Kazhakkoottam"</li>
+          <li>Pre-launch buzz via Instagram Stories + Reels countdown</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 1 -->
+  <div class="phase ph1">
+    <div class="ph-head">
+      <div class="ph-num pn1">1</div>
+      <div><div class="ph-title">Vertical Launch & Initial Traction</div><div class="ph-sub">Aug–Oct 2026 · 3 months · Establish each brand in the market</div></div>
+      <span class="pill pill-teal">Build Phase</span>
+    </div>
+    <div class="ph-items">
+      <div class="ph-item">
+        <div class="ph-item-title" style="color:var(--rose);">🍽️ Catering — Onam & Pre-Wedding</div>
+        <ul>
+          <li>Onam Sadhya campaign — target 20+ bookings in Aug</li>
+          <li>Launch Meta Ads for Nov–Feb wedding season (from Aug)</li>
+          <li>"Chef's Table" premium package — ₹1,200+/plate positioning</li>
+          <li>Corporate lunch tie-up outreach — 10 companies in Kazhakkoottam/Technopark zone</li>
+          <li>Video testimonials from past clients — 3 reels</li>
+        </ul>
+      </div>
+      <div class="ph-item">
+        <div class="ph-item-title" style="color:var(--teal);">☁️ CloudIT — First Batch</div>
+        <ul>
+          <li>Structured program design: Basic (₹8K) / Standard (₹18K) / Premium (₹35K)</li>
+          <li>Batch 1 intake: target 8–10 students</li>
+          <li>Instagram page reposition as serious B2B training brand</li>
+          <li>CloudIT lead magnet: free "How to Start a Cloud Kitchen" guide</li>
+          <li>Guest session — UAE chef on international kitchen ops (content gold)</li>
+        </ul>
+      </div>
+      <div class="ph-item">
+        <div class="ph-item-title" style="color:var(--gold);">🥙 Souq — Official Launch</div>
+        <ul>
+          <li>Grand opening in Jul — invite food bloggers, BNI contacts, media</li>
+          <li>Swiggy/Zomato listing with strong photos & menu copy</li>
+          <li>Weekend-special stall concept — themed food drops</li>
+          <li>Daily social content: street food POV, chef process, UAE dish stories</li>
+          <li>Target: 150+ daily covers by end of Sep</li>
+        </ul>
+      </div>
+      <div class="ph-item">
+        <div class="ph-item-title">📊 Group Marketing Actions</div>
+        <ul>
+          <li>Meta Ads: ₹15–20K/month across all brands combined</li>
+          <li>Google Ads: wedding catering search terms (₹5–8K/month)</li>
+          <li>3 Kerala food influencer collaborations (micro, 10K–50K)</li>
+          <li>BNI Matrix referral pipeline — structured monthly ask</li>
+          <li>WhatsApp broadcast list — 200+ contacts by Oct</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 2 -->
+  <div class="phase ph2">
+    <div class="ph-head">
+      <div class="ph-num pn2">2</div>
+      <div><div class="ph-title">Peak Season Domination & Cross-Sell Activation</div><div class="ph-sub">Nov 2026 – Mar 2027 · 5 months · Convert reach into revenue</div></div>
+      <span class="pill pill-gold">Revenue Phase</span>
+    </div>
+    <div class="ph-items">
+      <div class="ph-item">
+        <div class="ph-item-title">🎊 Wedding Season Full Push</div>
+        <ul>
+          <li>Target 35–40 weddings across Nov–Feb</li>
+          <li>Wedding planner partnership deals (3–5 planners)</li>
+          <li>Premium "UAE-influenced" wedding menu as hero package</li>
+          <li>Every catering booking → cross-sell Souq corporate lunch</li>
+          <li>Dec 31 New Year event catering (high-ticket)</li>
+        </ul>
+      </div>
+      <div class="ph-item">
+        <div class="ph-item-title">🥙 Souq Peak Season</div>
+        <ul>
+          <li>Christmas & New Year special themed menus</li>
+          <li>NRI crowd targeting — Middle Eastern food nostalgia angle</li>
+          <li>Takeaway/delivery push on Swiggy & Zomato</li>
+          <li>Begin data collection for Zone 2 feasibility</li>
+          <li>Corporate gifting tie-up: Souq combo packs</li>
+        </ul>
+      </div>
+      <div class="ph-item">
+        <div class="ph-item-title">☁️ CloudIT Batch 2 & PR</div>
+        <ul>
+          <li>Batch 2 intake in Sep, runs through Oct–Nov</li>
+          <li>Success story content: graduate cloud kitchen opens</li>
+          <li>YouTube channel: launch with 4 founder-story videos</li>
+          <li>Partner with local startup/MSME programs</li>
+          <li>Begin online curriculum development for Year 2</li>
+        </ul>
+      </div>
+      <div class="ph-item">
+        <div class="ph-item-title">📣 PR & Media Push</div>
+        <ul>
+          <li>Chef Kumar media feature in 2 Kerala lifestyle publications</li>
+          <li>UAE collab story — food media pitch (The Hindu, Mathrubhumi)</li>
+          <li>Souq food street feature — viral reel strategy</li>
+          <li>Submit for Kerala food awards / recognition platforms</li>
+          <li>Group milestone post: 100 events catered, 25 cloud kitchen graduates</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 3 -->
+  <div class="phase ph3">
+    <div class="ph-head">
+      <div class="ph-num pn3">3</div>
+      <div><div class="ph-title">Consolidate, Expand & Build Systems</div><div class="ph-sub">Apr–May 2027 (+ into Year 2) · Scale what's working</div></div>
+      <span class="pill pill-rose">Scale Phase</span>
+    </div>
+    <div class="ph-items">
+      <div class="ph-item">
+        <div class="ph-item-title">📈 Catering Scale</div>
+        <ul>
+          <li>Annual corporate catering retainer deals — target 5 companies</li>
+          <li>Introduce "Love Bytes Hospitality Suite" — full event management</li>
+          <li>Explore second ops team for North TVM zone</li>
+          <li>NRI wedding market — Dubai/Singapore/UK Kerala diaspora</li>
+          <li>Year 2 Onam pre-booking begins in May 2027</li>
+        </ul>
+      </div>
+      <div class="ph-item">
+        <div class="ph-item-title">🎓 CloudIT Academy</div>
+        <ul>
+          <li>Online course platform launch (Teachable or custom)</li>
+          <li>UAE batch: expats planning India cloud kitchen ventures</li>
+          <li>MSME/Startup India grant application</li>
+          <li>Curriculum: add a barista/café setup vertical</li>
+          <li>100 graduates milestone — event + PR</li>
+        </ul>
+      </div>
+      <div class="ph-item">
+        <div class="ph-item-title">🗺️ Souq Zone 2</div>
+        <ul>
+          <li>Evaluate Zone 2 location (new area of Trivandrum)</li>
+          <li>Standardize Souq ops manual for replication</li>
+          <li>Explore Kochi Souq as Year 2 expansion</li>
+          <li>Introduce season-wise limited menu drops</li>
+          <li>Food truck version — events & corporate zones</li>
+        </ul>
+      </div>
+      <div class="ph-item">
+        <div class="ph-item-title">🤝 Partnership Deepening</div>
+        <ul>
+          <li>UAE chef: formalize menu royalty / co-IP agreement</li>
+          <li>Explore GCC licensing for Souq concept</li>
+          <li>Hotel/resort partnerships: catering overflow contracts</li>
+          <li>CloudIT × Souq pipeline: graduates become Souq zone operators</li>
+          <li>Group annual event: "Love Bytes Festival" — all 3 brands in one</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== EXECUTION DASHBOARD ===== -->
+<div class="section" id="section-dashboard">
+  <h2 class="sec-title">Execution Dashboard</h2>
+  <p class="sec-sub">50+ trackable tasks — filter by brand, category, phase, priority. Check off as you go.</p>
+
+  <div class="filter-row">
+    <label>Brand:</label>
+    <select id="f-brand" onchange="filterT()">
+      <option value="">All Brands</option>
+      <option value="Group">Group</option>
+      <option value="Catering">Catering</option>
+      <option value="CloudIT">CloudIT</option>
+      <option value="Souq">Souq</option>
+    </select>
+    <label>Category:</label>
+    <select id="f-cat" onchange="filterT()">
+      <option value="">All Categories</option>
+      <option value="DM">Digital Marketing</option>
+      <option value="Design">Design</option>
+      <option value="Strategy">Strategy</option>
+      <option value="Ops">Operations</option>
+      <option value="Client">Client/Sales</option>
+    </select>
+    <label>Priority:</label>
+    <select id="f-pri" onchange="filterT()">
+      <option value="">All</option>
+      <option value="High">High</option>
+      <option value="Med">Medium</option>
+      <option value="Low">Low</option>
+    </select>
+    <label>Phase:</label>
+    <select id="f-phase" onchange="filterT()">
+      <option value="">All Phases</option>
+      <option value="0">Phase 0 — Foundation</option>
+      <option value="1">Phase 1 — Launch</option>
+      <option value="2">Phase 2 — Revenue</option>
+      <option value="3">Phase 3 — Scale</option>
+    </select>
+    <button onclick="resetT()">Reset</button>
+  </div>
+
+  <div class="kpi-strip">
+    <div class="kpi-c"><div class="kpi-ic">📋</div><div class="kpi-v" id="k-tot">0</div><div class="kpi-l">Total Tasks</div></div>
+    <div class="kpi-c"><div class="kpi-ic">🔴</div><div class="kpi-v" id="k-hi">0</div><div class="kpi-l">High Priority</div></div>
+    <div class="kpi-c"><div class="kpi-ic">🟡</div><div class="kpi-v" id="k-mi">0</div><div class="kpi-l">Medium Priority</div></div>
+    <div class="kpi-c"><div class="kpi-ic">✅</div><div class="kpi-v" id="k-dn">0%</div><div class="kpi-l">Done</div><div class="kpi-n">Check boxes below ↓</div></div>
+  </div>
+
+  <div class="card">
+    <div class="table-scroll">
+    <table class="tt" id="tt">
+      <thead>
+        <tr><th>✓</th><th>Task</th><th>Brand</th><th>Cat</th><th>Priority</th><th>Phase</th><th>Owner</th><th>When</th></tr>
+      </thead>
+      <tbody id="tt-body"></tbody>
+    </table>
+    </div>
+  </div>
+</div>
+
+<!-- ===== FORECAST & KPIs ===== -->
+<div class="section" id="section-forecast">
+  <h2 class="sec-title">Revenue Forecast & KPIs</h2>
+  <p class="sec-sub">Realistic targets from June 2026 — conservative Year 1, growth Year 2</p>
+
+  <div class="ib ib-gold">
+    <span class="ib-icon">📌</span>
+    <div>Year 1 runs June 2026 → May 2027. Numbers reflect a ramp-up reality — Catering already has a base, CloudIT is being structured, Souq is launching. Targets are achievable, not aspirational maximums.</div>
+  </div>
+
+  <div class="fc-row">
+    <div class="fc-c fc-catering">
+      <div class="fc-l" style="color:var(--rose);">🍽️ Catering — Year 1</div>
+      <div class="fc-v">₹38–50L</div>
+      <div class="fc-n">~70–90 events · avg ₹45–55K per event<br>Strong Nov–Feb peak already proven</div>
+      <hr style="margin:10px 0;border-color:rgba(201,119,106,0.25);">
+      <div class="fc-v" style="font-size:18px;">₹80–1.1Cr</div>
+      <div class="fc-n">Year 2 · Second ops team + NRI wedding market + corporate retainers</div>
+    </div>
+    <div class="fc-c fc-cloudit">
+      <div class="fc-l" style="color:var(--teal);">☁️ CloudIT — Year 1</div>
+      <div class="fc-v">₹8–14L</div>
+      <div class="fc-n">3 batches × 8–10 students × ₹8–35K mixed<br>+ 4–6 consulting projects</div>
+      <hr style="margin:10px 0;border-color:rgba(45,125,119,0.25);">
+      <div class="fc-v" style="font-size:18px;">₹22–35L</div>
+      <div class="fc-n">Year 2 · Online course + UAE batch + 4 batches/year</div>
+    </div>
+    <div class="fc-c fc-souq">
+      <div class="fc-l" style="color:var(--gold);">🥙 Souq — Year 1</div>
+      <div class="fc-v">₹18–28L</div>
+      <div class="fc-n">Launching Jul '26 · 10 month ramp<br>100–200 covers/day target by Dec</div>
+      <hr style="margin:10px 0;border-color:rgba(200,151,58,0.25);">
+      <div class="fc-v" style="font-size:18px;">₹45–70L</div>
+      <div class="fc-n">Year 2 · Zone 1 mature + Zone 2 opening</div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Year 1 Revenue Mix</div>
+      <div class="ch-wrap"><canvas id="rchart"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Monthly Revenue Build (Jun 2026 → May 2027, ₹L)</div>
+      <div class="ch-wrap"><canvas id="mchart"></canvas></div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:18px;">
+    <div class="card-title">Quarterly KPI Targets — Practical & Trackable</div>
+    <div class="card-sub">Starting Q1: Jun–Aug 2026</div>
+    <div class="table-scroll">
+    <table class="tbl">
+      <thead>
+        <tr><th>KPI</th><th>Vertical</th><th>Q1 (Jun–Aug)</th><th>Q2 (Sep–Nov)</th><th>Q3 (Dec–Feb)</th><th>Q4 (Mar–May)</th><th>Year 1 Total</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Events catered</td><td>🍽️ Catering</td><td>10–14</td><td>16–22</td><td>28–35</td><td>16–20</td><td>70–91</td></tr>
+        <tr><td>Corporate events/month</td><td>🍽️ Catering</td><td>2–3</td><td>4–5</td><td>6–8</td><td>4–5</td><td>—</td></tr>
+        <tr><td>Catering inquiry leads/month</td><td>🍽️ Catering</td><td>15</td><td>25</td><td>40</td><td>20</td><td>—</td></tr>
+        <tr><td>CloudIT students enrolled</td><td>☁️ CloudIT</td><td>8–10</td><td>8–12</td><td>4–6</td><td>12–16</td><td>32–44</td></tr>
+        <tr><td>CloudIT consulting projects</td><td>☁️ CloudIT</td><td>1–2</td><td>2–3</td><td>2–3</td><td>3–4</td><td>8–12</td></tr>
+        <tr><td>Souq daily covers (avg)</td><td>🥙 Souq</td><td>Ramp: 40→80</td><td>80–140</td><td>150–200</td><td>120–160</td><td>—</td></tr>
+        <tr><td>Souq Zomato/Swiggy orders/day</td><td>🥙 Souq</td><td>10–20</td><td>25–40</td><td>50–80</td><td>40–60</td><td>—</td></tr>
+        <tr><td>Instagram followers (group total)</td><td>All</td><td>+500</td><td>+800</td><td>+1,200</td><td>+1,000</td><td>+3,500</td></tr>
+        <tr><td>Google rating maintained</td><td>All</td><td>4.2+</td><td>4.3+</td><td>4.4+</td><td>4.4+</td><td>4.4+</td></tr>
+        <tr><td>Cross-sell conversion rate</td><td>Group</td><td>5%</td><td>8%</td><td>12%</td><td>15%</td><td>15%+</td></tr>
+        <tr><td>WhatsApp inquiry list size</td><td>Group</td><td>100</td><td>200</td><td>350</td><td>500</td><td>500+</td></tr>
+        <tr><td>PR / media mentions</td><td>Group</td><td>1</td><td>2</td><td>2</td><td>2</td><td>7+</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</div>
+
+<!-- ===== CROSS-SELL ===== -->
+<div class="section" id="section-crosssell">
+  <h2 class="sec-title">Cross-Sell Strategy & Matrix</h2>
+  <p class="sec-sub">How the three verticals feed each other — and what to say, when</p>
+
+  <div class="ib ib-teal">
+    <span class="ib-icon">💡</span>
+    <div>Cross-selling within a hospitality group is 5–7x cheaper than acquiring a new customer. Every client of one vertical is a warm lead for the others. The goal: make it natural, not salesy.</div>
+  </div>
+
+  <div class="card" style="margin-bottom:18px;">
+    <div class="card-title">Cross-Sell Opportunity Matrix</div>
+    <div class="card-sub">Strength of cross-sell from one vertical (row) to another (column)</div>
+    <div class="table-scroll">
+    <table class="mx">
+      <thead>
+        <tr><th>From ↓ / To →</th><th>🍽️ Catering</th><th>☁️ CloudIT</th><th>🥙 Souq</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>🍽️ Love Bytes Catering</td>
+          <td class="mx-w">—</td>
+          <td class="mx-m">⭐⭐ Moderate<br><small>F&B enthusiasts at events → CloudIT interest</small></td>
+          <td class="mx-s">⭐⭐⭐ Strong<br><small>Corporate clients → Souq for daily lunches & gifting</small></td>
+        </tr>
+        <tr>
+          <td>☁️ CloudIT</td>
+          <td class="mx-m">⭐⭐ Moderate<br><small>Trainees need test catering experience; referral back</small></td>
+          <td class="mx-w">—</td>
+          <td class="mx-s">⭐⭐⭐ Strong<br><small>Graduates → Souq zone operators / suppliers</small></td>
+        </tr>
+        <tr>
+          <td>🥙 Souq</td>
+          <td class="mx-s">⭐⭐⭐ Strong<br><small>"Who catered your last office event?" → Catering</small></td>
+          <td class="mx-m">⭐⭐ Moderate<br><small>F&B-minded regulars → CloudIT interest</small></td>
+          <td class="mx-w">—</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">🎯 Top 4 Cross-Sell Plays — Executable Now</div>
+      <div style="font-size:13px;line-height:1.7;">
+        <div style="background:var(--rose-light);border-radius:8px;padding:12px;margin-bottom:10px;">
+          <strong style="color:var(--rose);">Play 1 — Catering → Souq Corporate Lunch</strong><br>
+          At every corporate catering pitch: <em>"We also operate Souq food street in Kazhakkoottam — perfect for your team's weekday lunches. Let us set up a monthly account."</em>
+        </div>
+        <div style="background:var(--teal-light);border-radius:8px;padding:12px;margin-bottom:10px;">
+          <strong style="color:var(--teal);">Play 2 — Souq → Catering Discovery</strong><br>
+          Tent card at Souq: <em>"Planning a wedding, corporate event or Onam feast? Our catering team handles 500+ guests. Ask us."</em> QR → WhatsApp inquiry.
+        </div>
+        <div style="background:var(--gold-light);border-radius:8px;padding:12px;margin-bottom:10px;">
+          <strong style="color:var(--amber);">Play 3 — CloudIT → Souq Zone Partner</strong><br>
+          Last session of every CloudIT batch: <em>"The fastest way to apply what you've learned? Partner with us to operate a Souq zone. We'll show you the model."</em>
+        </div>
+        <div style="background:#EDEDEF;border-radius:8px;padding:12px;">
+          <strong style="color:#444;">Play 4 — Group Loyalty / Referral Card</strong><br>
+          One referral system across all three verticals. Refer a wedding client → get ₹500 Souq voucher. Refer a CloudIT student → get catering discount. Makes clients ambassadors.
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">📅 Season-Triggered Cross-Sell Moments</div>
+      <div class="card-sub">When the calendar creates a natural opening</div>
+      <table class="tbl" style="font-size:12px;margin-top:8px;">
+        <thead><tr><th>Trigger</th><th>Primary</th><th>Cross-Sell To</th><th>Line to Use</th></tr></thead>
+        <tbody>
+          <tr><td>Onam (Aug)</td><td>Catering</td><td>Souq</td><td>"Try our Onam specials at Souq this weekend"</td></tr>
+          <tr><td>Wedding Booking</td><td>Catering</td><td>Souq</td><td>"Corporate lunch for your team? We've got you covered daily"</td></tr>
+          <tr><td>CloudIT Batch End</td><td>CloudIT</td><td>Souq</td><td>"Want to operate your own food zone? Let's talk Souq"</td></tr>
+          <tr><td>Dec–Jan NRI Season</td><td>Souq</td><td>Catering</td><td>"Planning a homecoming feast? Our catering team handles everything"</td></tr>
+          <tr><td>Vishu (April)</td><td>Catering</td><td>Souq</td><td>"Vishu feast catered + Souq Vishu special menu"</td></tr>
+          <tr><td>New corporate inquiry</td><td>Catering</td><td>Souq</td><td>"We also do daily corporate lunch via Souq — one vendor, two needs"</td></tr>
+        </tbody>
+      </table>
+
+      <div class="card-title" style="margin-top:18px;">⚠️ Top Risks to Watch</div>
+      <div class="card-sub" style="margin-bottom:8px;">Keep these from derailing the plan</div>
+      <table class="rt">
+        <thead><tr><th>Risk</th><th>Level</th><th>Mitigation</th></tr></thead>
+        <tbody>
+          <tr><td>Brand confusion — 3 names under 1 group</td><td><span class="badge rh">High</span></td><td>Strong parent brand communication from Day 1; every touchpoint says "Love Bytes Hospitality Group"</td></tr>
+          <tr><td>Souq Zone 1 slow ramp (new concept)</td><td><span class="badge rm">Med</span></td><td>Launch with a food blogger event; don't judge footfall before 8 weeks of operation</td></tr>
+          <tr><td>Monsoon kills Jun–Jul momentum</td><td><span class="badge rm">Med</span></td><td>CloudIT carries Jun–Jul revenue; use this window to build content bank and systems</td></tr>
+          <tr><td>Key person dependency (Chef Kumar)</td><td><span class="badge rh">High</span></td><td>Build brand IP beyond chef — team-led content, documented processes, visual brand not face-dependent</td></tr>
+          <tr><td>CloudIT lacks student pipeline</td><td><span class="badge rm">Med</span></td><td>Start building waitlist from June via Instagram + BNI referrals before Batch 1 opens</td></tr>
+          <tr><td>Catering peak overlap — can't serve all demand</td><td><span class="badge rh">High</span></td><td>Define maximum capacity per event; hire seasonal teams; build waitlist as a premium signal</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="agency-wm">Crafted by FlumenX × Misc Archive &nbsp;|&nbsp; Strategy: Anoop Krishna V A &nbsp;|&nbsp; Trivandrum, Kerala</div>
+
+<script>
+// NAV
+function showTab(tab, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('section-' + tab).classList.add('active');
+  btn.classList.add('active');
+  if (tab === 'forecast') initCharts();
+}
+
+// TASKS
+const TASKS = [
+  // PHASE 0
+  {t:"Register lovebyteshospitality.com / .in domain",brand:"Group",cat:"Ops",pri:"High",phase:"0",owner:"Akhil",when:"Week 1 Jun"},
+  {t:"Design Love Bytes Hospitality Group parent brand identity (logo, colors, type)",brand:"Group",cat:"Design",pri:"High",phase:"0",owner:"FlumenX Design",when:"Weeks 1–3"},
+  {t:"Sub-brand visual guidelines for Catering, CloudIT, Souq",brand:"Group",cat:"Design",pri:"High",phase:"0",owner:"FlumenX Design",when:"Weeks 2–4"},
+  {t:"Brand voice & positioning document — all 3 verticals",brand:"Group",cat:"Strategy",pri:"High",phase:"0",owner:"Anoop + Chef Kumar",when:"Week 2"},
+  {t:"Design templates: invoice, proposal deck, email signature",brand:"Group",cat:"Design",pri:"Med",phase:"0",owner:"FlumenX Design",when:"Month 1"},
+  {t:"Group website Phase 1 — lovebyteshospitality.com (Akhil build)",brand:"Group",cat:"Design",pri:"High",phase:"0",owner:"Akhil",when:"Month 1–2"},
+  {t:"Set up WhatsApp Business for catering inquiry funnel",brand:"Catering",cat:"Ops",pri:"High",phase:"0",owner:"Akhil",when:"Week 1"},
+  {t:"Claim & optimise Google Business profiles — Catering, CloudIT, Souq",brand:"Group",cat:"DM",pri:"High",phase:"0",owner:"Shibin",when:"Week 2"},
+  {t:"Professional photoshoot — all 3 verticals + Chef Kumar",brand:"Group",cat:"Design",pri:"High",phase:"0",owner:"FlumenX Design",when:"Month 1"},
+  {t:"UAE chef partnership announcement — joint reel + post",brand:"Group",cat:"DM",pri:"High",phase:"0",owner:"Shibin",when:"Month 1"},
+  {t:"Build 60-day content calendar — all brands",brand:"Group",cat:"DM",pri:"High",phase:"0",owner:"Shibin",when:"Month 1"},
+  {t:"Souq pre-launch teaser content — countdown series on IG",brand:"Souq",cat:"DM",pri:"High",phase:"0",owner:"Shibin",when:"Jun–Jul"},
+  {t:"Finalize Souq Zone 1 setup — Kazhakkoottam/Chempazhanthy",brand:"Souq",cat:"Ops",pri:"High",phase:"0",owner:"Chef Kumar",when:"Jun"},
+  {t:"Confirm Souq menu with UAE chef partner (40+ items)",brand:"Souq",cat:"Ops",pri:"High",phase:"0",owner:"Chef Kumar",when:"Jun"},
+  {t:"Chef Kumar personal brand story video — origin + UAE collab",brand:"Group",cat:"DM",pri:"Med",phase:"0",owner:"Shibin",when:"Month 1"},
+
+  // PHASE 1 — CATERING
+  {t:"Launch Onam 2026 catering pre-booking campaign (target: 20+ bookings)",brand:"Catering",cat:"DM",pri:"High",phase:"1",owner:"Shibin",when:"Jun–Jul"},
+  {t:"Activate Meta Ads for Nov–Feb wedding season (begin Aug)",brand:"Catering",cat:"DM",pri:"High",phase:"1",owner:"Shibin",when:"Aug"},
+  {t:"Design & distribute corporate catering menu deck — 10 companies",brand:"Catering",cat:"Client",pri:"High",phase:"1",owner:"Chef Kumar + Shibin",when:"Jul–Aug"},
+  {t:"Launch 'Chef's Table' premium package — ₹1,200+ positioning",brand:"Catering",cat:"Strategy",pri:"Med",phase:"1",owner:"Anoop + Chef Kumar",when:"Aug"},
+  {t:"Create 3 client testimonial reels from past events",brand:"Catering",cat:"DM",pri:"Med",phase:"1",owner:"Shibin",when:"Jul"},
+  {t:"Rebrand Catering social: 'Love Bytes Catering | Love Bytes Hospitality Group'",brand:"Catering",cat:"DM",pri:"High",phase:"1",owner:"Shibin",when:"Jul"},
+
+  // PHASE 1 — CLOUDIT
+  {t:"Design CloudIT 3-tier curriculum: Basic (₹8K) / Standard (₹18K) / Premium (₹35K)",brand:"CloudIT",cat:"Strategy",pri:"High",phase:"1",owner:"Chef Kumar",when:"Jun"},
+  {t:"CloudIT Batch 1 intake — target 8–10 students",brand:"CloudIT",cat:"Client",pri:"High",phase:"1",owner:"Chef Kumar + Shibin",when:"Jun–Jul"},
+  {t:"Reposition CloudIT Instagram as B2B training brand",brand:"CloudIT",cat:"DM",pri:"High",phase:"1",owner:"Shibin",when:"Jun"},
+  {t:"CloudIT lead magnet: free PDF guide 'How to Start a Cloud Kitchen in Kerala'",brand:"CloudIT",cat:"DM",pri:"Med",phase:"1",owner:"Shibin",when:"Jul"},
+  {t:"CloudIT landing page with inquiry form (Akhil build)",brand:"CloudIT",cat:"Design",pri:"High",phase:"1",owner:"Akhil",when:"Jun"},
+  {t:"UAE chef guest session (recorded) — international kitchen ops masterclass",brand:"CloudIT",cat:"Client",pri:"Med",phase:"1",owner:"Chef Kumar",when:"Aug"},
+
+  // PHASE 1 — SOUQ
+  {t:"Souq grand opening event — invite food bloggers, BNI contacts, media",brand:"Souq",cat:"Client",pri:"High",phase:"1",owner:"Chef Kumar + Shibin",when:"Jul"},
+  {t:"Souq Swiggy & Zomato listing — professional photos + menu copy",brand:"Souq",cat:"DM",pri:"High",phase:"1",owner:"Shibin",when:"Jul"},
+  {t:"Daily Souq social content — street food POV, chef process, dish stories",brand:"Souq",cat:"DM",pri:"High",phase:"1",owner:"Shibin",when:"Ongoing"},
+  {t:"Souq QR cross-sell cards — catering inquiry link on every table",brand:"Souq",cat:"Design",pri:"Med",phase:"1",owner:"FlumenX Design",when:"Jul"},
+  {t:"Target 150+ Souq daily covers by end of Sep 2026",brand:"Souq",cat:"Ops",pri:"High",phase:"1",owner:"Chef Kumar",when:"Sep (target)"},
+  {t:"3 Kerala micro-influencer collabs for Souq launch (10K–50K following)",brand:"Souq",cat:"DM",pri:"High",phase:"1",owner:"Shibin",when:"Jul–Aug"},
+
+  // PHASE 2
+  {t:"Wedding season Meta Ads full push — Oct budget increase to ₹20K+/month",brand:"Catering",cat:"DM",pri:"High",phase:"2",owner:"Shibin",when:"Oct"},
+  {t:"Target 35–40 weddings Nov–Feb — calendar management system",brand:"Catering",cat:"Ops",pri:"High",phase:"2",owner:"Chef Kumar + Sujeesh",when:"Nov–Feb"},
+  {t:"Sign 3–5 wedding planner partnership deals",brand:"Catering",cat:"Client",pri:"High",phase:"2",owner:"Chef Kumar",when:"Sep–Oct"},
+  {t:"Souq Christmas + New Year themed menu drops",brand:"Souq",cat:"DM",pri:"High",phase:"2",owner:"Chef Kumar + Shibin",when:"Dec"},
+  {t:"Corporate gifting tie-up: Souq combo packs for Dec year-end",brand:"Souq",cat:"Client",pri:"Med",phase:"2",owner:"Shibin",when:"Nov–Dec"},
+  {t:"CloudIT Batch 2 intake (Sep) — target 10–12 students",brand:"CloudIT",cat:"Client",pri:"High",phase:"2",owner:"Chef Kumar",when:"Sep"},
+  {t:"CloudIT success story content: graduate cloud kitchen launch",brand:"CloudIT",cat:"DM",pri:"Med",phase:"2",owner:"Shibin",when:"Nov"},
+  {t:"Chef Kumar media pitch: 2 Kerala lifestyle publications",brand:"Group",cat:"DM",pri:"Med",phase:"2",owner:"Anoop + Shibin",when:"Nov–Dec"},
+  {t:"Group WhatsApp broadcast list — target 350+ contacts by Dec",brand:"Group",cat:"DM",pri:"Med",phase:"2",owner:"Shibin",when:"Dec"},
+  {t:"Begin Souq Zone 2 data collection and feasibility review",brand:"Souq",cat:"Strategy",pri:"Med",phase:"2",owner:"Anoop + Chef Kumar",when:"Jan '27"},
+
+  // PHASE 3
+  {t:"5 corporate annual catering retainer agreements — pitch & close",brand:"Catering",cat:"Client",pri:"High",phase:"3",owner:"Chef Kumar",when:"Feb–Apr '27"},
+  {t:"CloudIT online course platform development (Teachable or custom)",brand:"CloudIT",cat:"Ops",pri:"High",phase:"3",owner:"Akhil",when:"Mar '27"},
+  {t:"CloudIT UAE batch planning — expats planning India cloud kitchens",brand:"CloudIT",cat:"Strategy",pri:"Med",phase:"3",owner:"Chef Kumar",when:"Apr '27"},
+  {t:"Souq Zone 2 location decision and ops manual documentation",brand:"Souq",cat:"Strategy",pri:"High",phase:"3",owner:"Anoop + Chef Kumar",when:"Mar–Apr '27"},
+  {t:"CloudIT × Souq pipeline: pitch Zone 2 to top graduating student",brand:"Group",cat:"Strategy",pri:"Med",phase:"3",owner:"Chef Kumar",when:"Apr '27"},
+  {t:"Begin planning 'Love Bytes Festival' — Year 2 brand event (all 3 verticals)",brand:"Group",cat:"Strategy",pri:"Low",phase:"3",owner:"Anoop",when:"May '27"},
+  {t:"Onam 2027 pre-booking campaign — learn from Year 1 and scale",brand:"Catering",cat:"DM",pri:"High",phase:"3",owner:"Shibin",when:"May '27"},
+];
+
+let filteredT = [...TASKS];
+
+function renderT(tasks) {
+  const b = document.getElementById('tt-body');
+  b.innerHTML = '';
+  tasks.forEach((t, i) => {
+    const realIdx = TASKS.indexOf(t);
+    const tr = document.createElement('tr');
+    tr.style.opacity = t.done ? '0.45' : '1';
+    tr.innerHTML = `
+      <td><input type="checkbox" ${t.done?'checked':''} onchange="toggleT(${realIdx},this)"></td>
+      <td style="max-width:270px;font-size:12px;line-height:1.45;">${t.t}</td>
+      <td><span class="badge ${bBadge(t.brand)}">${t.brand}</span></td>
+      <td><span class="badge ${cBadge(t.cat)}">${t.cat}</span></td>
+      <td><span class="badge ${pBadge(t.pri)}">${t.pri}</span></td>
+      <td style="font-size:11px;color:#888;white-space:nowrap;">Ph ${t.phase}</td>
+      <td style="font-size:11px;color:#888;">${t.owner}</td>
+      <td style="font-size:11px;white-space:nowrap;">${t.when}</td>
+    `;
+    b.appendChild(tr);
+  });
+  updateKPIs(tasks);
+}
+
+function bBadge(b){const m={Group:'b-strategy',Catering:'b-client',CloudIT:'b-dm',Souq:'b-design'};return m[b]||'b-ops';}
+function cBadge(c){const m={DM:'b-dm',Design:'b-design',Client:'b-client',Ops:'b-ops',Strategy:'b-strategy'};return m[c]||'b-ops';}
+function pBadge(p){return p==='High'?'b-high':p==='Med'?'b-med':'b-low';}
+
+function toggleT(i, cb) {
+  TASKS[i].done = cb.checked;
+  cb.closest('tr').style.opacity = cb.checked ? '0.45' : '1';
+  updateKPIs(filteredT);
+}
+
+function updateKPIs(tasks) {
+  document.getElementById('k-tot').textContent = tasks.length;
+  document.getElementById('k-hi').textContent = tasks.filter(t => t.pri === 'High').length;
+  document.getElementById('k-mi').textContent = tasks.filter(t => t.pri === 'Med').length;
+  const done = TASKS.filter(t => t.done).length;
+  document.getElementById('k-dn').textContent = Math.round(done / TASKS.length * 100) + '%';
+}
+
+function filterT() {
+  const b = document.getElementById('f-brand').value;
+  const c = document.getElementById('f-cat').value;
+  const p = document.getElementById('f-pri').value;
+  const ph = document.getElementById('f-phase').value;
+  filteredT = TASKS.filter(t =>
+    (!b || t.brand === b) && (!c || t.cat === c) && (!p || t.pri === p) && (!ph || t.phase === ph)
+  );
+  renderT(filteredT);
+}
+
+function resetT() {
+  ['f-brand','f-cat','f-pri','f-phase'].forEach(id => document.getElementById(id).value = '');
+  filteredT = [...TASKS];
+  renderT(filteredT);
+}
+
+// CHARTS
+let ci = false;
+function initCharts() {
+  if (ci) return; ci = true;
+  // Donut
+  new Chart(document.getElementById('rchart').getContext('2d'), {
+    type: 'doughnut',
+    data: {
+      labels: ['Catering (55%)', 'Souq (27%)', 'CloudIT (18%)'],
+      datasets: [{ data: [55, 27, 18], backgroundColor: ['#C9776A','#C8973A','#2D7D77'], borderWidth: 3, borderColor: '#fff' }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position: 'bottom', labels: { padding: 14, font: { size: 12, family: 'DM Sans' } } } }
+    }
+  });
+  // Monthly bar
+  const months = ['Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar','Apr','May'];
+  new Chart(document.getElementById('mchart').getContext('2d'), {
+    type: 'bar',
+    data: {
+      labels: months,
+      datasets: [
+        { label: 'Catering', data: [2,3,5,5,4,9,10,11,7,6,4,2], backgroundColor: '#C9776A' },
+        { label: 'Souq', data: [0,1,3,4,4,5,6,7,5,3,3,3], backgroundColor: '#C8973A' },
+        { label: 'CloudIT', data: [2,2,1,2,2,1,0,0,2,2,3,3], backgroundColor: '#2D7D77' },
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      scales: {
+        x: { stacked: true, grid: { display: false } },
+        y: { stacked: true, title: { display: true, text: '₹ Lakhs (indicative)', font: { size: 11, family: 'DM Sans' } } }
+      },
+      plugins: { legend: { position: 'bottom', labels: { font: { size: 11, family: 'DM Sans' }, padding: 12 } } }
+    }
+  });
+}
+
+renderT(TASKS);
+</script>
+</body>
+</html>
